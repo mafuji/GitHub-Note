@@ -1,0 +1,43 @@
+
+# GitHub で Web からリポジトリを作成する手順（覚書）
+
+以下は、GitHub の Web 画面から新しいリポジトリを作成する際の手順メモです。
+
+---
+## 1. GitHub にログイン
+GitHub へアクセスし、右上の **Sign in** からログインする。
+
+---
+## 2. 新しいリポジトリの作成
+右上の **「+」 → New repository** をクリック。
+
+---
+## 3. リポジトリ情報を入力
+- **Repository name**：任意の名前（例：my-vba-project）
+- **Description**（任意）：説明文
+- **Visibility**：
+  - Public（誰でも見れる）
+  - Private（自分と招待された人だけ）
+- その他は基本デフォルトでOK。
+
+---
+## 4. Create repository をクリック
+GitHub がリモートリポジトリを作成し、push 用の URL が表示される。
+例：
+```
+https://github.com/ユーザー名/リポジトリ名.git
+```
+
+---
+## 5. ローカルで Git から push する（例）
+```
+git init
+git add .
+git commit -m "initial commit"
+git remote add origin https://github.com/ユーザー名/リポジトリ名.git
+git push -u origin main
+```
+
+---
+以上。
+GitHub 側でリポジトリを作った後は、通常の Git 操作で push / pull できるようになる。
