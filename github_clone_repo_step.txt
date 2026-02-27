@@ -1,0 +1,80 @@
+
+# GitHub リモートリポジトリをローカルに持ってくる手順書（覚書）
+
+以下は、GitHub 上に存在するリモートリポジトリを、ローカル環境へクローンして利用するための手順メモです。
+
+---
+## 1. GitHub 上で対象リポジトリを開く
+- GitHub にログインし、取得したいリポジトリのページを開く。
+- 緑色の **Code** ボタンをクリックし、表示された URL をコピーする。
+  - HTTPS 例：
+    ```
+    https://github.com/ユーザー名/リポジトリ名.git
+    ```
+  - SSH を使う場合：
+    ```
+    git@github.com:ユーザー名/リポジトリ名.git
+    ```
+
+---
+## 2. ローカルの保存先フォルダを決める
+例：
+```
+D:\source\GitHub-Projects
+```
+PowerShell / Git Bash で移動：
+```
+cd /d D:/source/GitHub-Projects
+```
+
+---
+## 3. git clone を実行（リポジトリをローカルに複製）
+コピーした URL を使って次を実行：
+```
+git clone https://github.com/ユーザー名/リポジトリ名.git
+```
+または SSH：
+```
+git clone git@github.com:ユーザー名/リポジトリ名.git
+```
+成功すると以下が作成される：
+```
+GitHub-Projects/
+ └─ リポジトリ名/
+      ├─ .git/
+      ├─ src/
+      ├─ README.md
+      └─ その他のファイル
+```
+
+---
+## 4. ローカルで作業開始
+作業フォルダへ移動：
+```
+cd リポジトリ名
+```
+必要に応じて VSCode や Excel、エディタで編集できる。
+
+---
+## 5. ローカルで変更 → Git へコミット
+```
+git add .
+git commit -m "作業内容を記述"
+```
+
+---
+## 6. GitHub へ push
+```
+git push origin main
+```
+※ ブランチ名が `master` の場合は `master` に読み替え。
+
+---
+## 補足
+- `git pull`：リモートの最新変更をローカルへ取得
+- `git status`：現在の変更状況を確認
+- `git branch`：現在のブランチ確認
+
+---
+以上。
+GitHub のリモートリポジトリからローカル環境へ複製して作業する基本手順の覚書です。

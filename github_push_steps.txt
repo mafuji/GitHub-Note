@@ -1,0 +1,108 @@
+
+# GitHub へローカルの変更を push する手順書（覚書）
+
+GitHub のリモートリポジトリへ、ローカルで行った変更を送信（push）する基本操作の手順メモです。
+
+---
+## 1. ローカルリポジトリへ移動
+PowerShell / Git Bash：
+```
+cd <ローカルのリポジトリフォルダ>
+```
+例：
+```
+cd D:/source/GitHub-Note
+```
+
+---
+## 2. 変更内容を確認
+```
+git status
+```
+- 変更されたファイルが赤色で表示される。
+- 新規ファイルは "Untracked" と表示される。
+
+---
+## 3. 変更をステージ（追加）
+すべての変更を追加：
+```
+git add .
+```
+特定ファイルだけ追加する場合：
+```
+git add <ファイル名>
+```
+
+---
+## 4. コミットを作成
+変更内容に説明をつけて記録する：
+```
+git commit -m "作業内容を記述"
+```
+例：
+```
+git commit -m "VBAエクスポートツールの修正"
+```
+
+---
+## 5. GitHub のリモートリポジトリへ push
+```
+git push origin main
+```
+※ `master` ブランチの場合：
+```
+git push origin master
+```
+
+初回 push の場合、ブランチを紐付ける必要がある：
+```
+git push -u origin main
+```
+
+---
+## 6. push が失敗する場合の対処
+### ● リモートに変更がありローカルが古い：
+```
+git pull origin main
+(コンフリクトがなければ自動で更新)
+git push origin main
+```
+
+### ● ローカルに未コミットの変更がある：
+変更を commit してから push：
+```
+git add .
+git commit -m "作業途中"
+git push origin main
+```
+
+### ● コンフリクトで pull できない：
+ファイルを手動で修正して：
+```
+git add .
+git commit -m "fix conflict"
+git push origin main
+```
+
+---
+## 7. よく使う確認コマンド
+現在のブランチ：
+```
+git branch
+```
+リモート設定確認：
+```
+git remote -v
+```
+
+---
+## 8. 基本フロー（覚えるのはこれだけでOK）
+```
+git add .
+git commit -m "update"
+git push origin main
+```
+
+---
+以上。
+ローカルの変更を GitHub へ push するための最小限の手順まとめです。

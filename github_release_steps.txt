@@ -1,0 +1,87 @@
+
+# GitHub リリース手順書（Tag 作成 ～ Release 公開まで）
+
+GitHub 上でソースコードの安定版を公開するための、**タグ作成からリリース生成までの一連の手順**をまとめた覚書です。
+
+---
+## 1. リリース前準備（ローカルで最新化）
+まず、ローカルの作業ディレクトリで以下を実行：
+```
+git pull origin main
+```
+※ ブランチが `master` の場合：
+```
+git pull origin master
+```
+ローカルがリモートと完全同期している状態にする。
+
+---
+## 2. リリース用のタグを作成する
+タグ名は慣例として `v1.0.0` のように **v + セマンティックバージョン** を使用する。
+```
+git tag v1.0.0
+```
+タグにコメント（注釈）を付ける場合：
+```
+git tag -a v1.0.0 -m "Initial release"
+```
+
+---
+## 3. タグを GitHub へ push する
+```
+git push origin v1.0.0
+```
+
+---
+## 4. GitHub Web で Release を作成
+1. 対象リポジトリを開く
+2. 上部メニュー **Releases** をクリック
+3. 右上：**Draft a new release** をクリック
+4. 項目を入力：
+   - **Tag**：先ほど push した `v1.0.0` を選択
+   - **Release title**：任意のタイトル（例：`v1.0.0 初回リリース`）
+   - **Description**：変更点や更新内容を箇条書きで記述
+   - 必要に応じてバイナリ（xlsmなど）を **Assets** としてアップロード
+5. **Publish release** をクリック
+
+---
+## 5.（任意）リリースノートを自動生成する場合
+GitHub には「自動 Release Notes」機能がある。
+- Pull Request や commit の内容から自動でリリースノートを生成
+
+Release 作成画面の「Automatically generate release notes」を選択するだけ。
+
+---
+## 6. リリース公開を確認
+- Releases ページに `v1.0.0` が表示される
+- 必要ならダウンロードテストを行う
+
+---
+## 7. 次回リリースのための流れ（参考）
+次回の開発 → commit → push 後、以下のようにタグ増分していく：
+```
+git tag v1.0.1
+git push origin v1.0.1
+```
+GitHub Web 上で Release を作成する手順は同じ。
+
+---
+## 8. よく使うタグ関連コマンド
+### ● 既存タグ一覧
+```
+git tag
+```
+
+### ● 特定タグの削除（ローカル）
+```
+git tag -d v1.0.0
+```
+
+### ● 特定タグの削除（リモート）
+```
+git push origin :refs/tags/v1.0.0
+```
+
+---
+以上。
+GitHub のタグ作成から Release 公開までの定番手順をまとめた覚書です。

@@ -1,0 +1,88 @@
+
+# GitHub リモートリポジトリとローカルを同期する手順書（git pull 覚書）
+
+GitHub 上のリモートリポジトリの最新内容を、ローカルの作業環境へ取り込むための基本手順をまとめた覚書です。
+
+---
+## 1. 同期したいローカルリポジトリへ移動
+PowerShell / Git Bash で作業ディレクトリに移動：
+```
+cd <あなたのローカルリポジトリ>
+```
+例：
+```
+cd D:/source/GitHub-Note
+```
+
+---
+## 2. 現在の状態を確認
+```
+git status
+```
+- 未コミットの変更があると、`git pull` 時に衝突が起きることがある。
+- 変更がある場合は **commit する** か **stash で退避**すると安全。
+
+---
+## 3. リモートの最新内容をローカルへ取り込む（pull）
+```
+git pull origin main
+```
+※ ブランチが `master` の場合：
+```
+git pull origin master
+```
+
+`git pull` とは内部的に：
+1. `git fetch`（リモートの最新を取得）
+2. `git merge`（ローカルに反映）
+の2ステップを行うショートカット。
+
+---
+## 4. pull ができないときの対処
+### ● ローカルに未コミットの変更がある：
+【方法A：変更をコミット】
+```
+git add .
+git commit -m "作業途中"
+git pull origin main
+```
+
+【方法B：stash に退避】
+```
+git stash
+git pull origin main
+git stash pop
+```
+
+---
+## 5. コンフリクトが発生した場合
+ファイル内に conflict マーカーが入り、手動で修正が必要：
+```
+<<<<<<< HEAD
+(あなたの変更)
+=======
+(リモートの変更)
+>>>>>>> origin/main
+```
+修正したら：
+```
+git add .
+git commit -m "merge conflict fix"
+```
+
+---
+## 6. 基本の作業フロー（覚えるのはこれだけでもOK）
+### ● リモート最新を取り込みたい
+```
+git pull origin main
+```
+
+### ● ローカルで作業して更新したい
+```
+git add .
+git commit -m "update"
+git push origin main
+```
+
+---
+以上。GitHub リモートをローカルと同期させるための最小限の手順メモです。

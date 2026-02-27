@@ -1,0 +1,102 @@
+
+# メインブランチから開発用ブランチを作成する手順書（覚書）
+
+GitHub での開発フローにおいて、**main ブランチを保護しつつ、開発用のブランチ（feature ブランチ / develop ブランチ）を作成する手順**をまとめた覚書です。
+
+---
+## 1. ローカルを最新の main に同期する
+作業前に必ず最新化しておく。
+```
+cd <ローカルリポジトリ>
+git pull origin main
+```
+※ リポジトリが `master` の場合は読み替える。
+
+---
+## 2. 新しいブランチを作成し、切り替える
+開発用ブランチ名は以下のような形式を推奨：
+- `feature/<機能名>`
+- `hotfix/<修正名>`
+- `develop`（開発統合用）
+
+例：新しい機能 login を作る場合：
+```
+git checkout -b feature/login
+```
+
+---
+## 3. 作成したブランチを GitHub へ push
+初回 push は `-u`（追跡設定）が必要：
+```
+git push -u origin feature/login
+```
+これで GitHub 側に新しいブランチが作成される。
+
+---
+## 4. 開発を進める（通常の commit → push）
+```
+git add .
+git commit -m "login機能の初期実装"
+git push
+```
+
+---
+## 5.（必要に応じて）GitHub 上でブランチを確認
+GitHub のリポジトリ画面 → ブランチ一覧で表示される：
+- https://github.com/<ユーザー名>/<リポジトリ名>/branches
+
+---
+## 6. Pull Request（PR）で main に統合する
+1. GitHub 上で **Pull requests** を開く
+2. **New Pull Request** をクリック
+3. base: `main` / compare: `feature/login` を選択
+4. 内容を記述して **Create Pull Request** を作成
+
+---
+## 7. PR が承認されたら main にマージ
+GitHub の画面で：
+- **Merge pull request** → **Confirm merge**
+
+開発用ブランチが不要になった場合：
+- **Delete branch** をクリック
+
+---
+## 8. ローカル main を更新
+マージ後はローカル側も最新化する：
+```
+git checkout main
+git pull origin main
+```
+
+---
+## 9. ローカルの開発ブランチ削除（不要なら）
+```
+git branch -d feature/login
+```
+削除できない場合（未マージ扱い）：
+```
+git branch -D feature/login
+```
+
+---
+## よく使うブランチ関連コマンドまとめ
+### ● ブランチ一覧
+```
+git branch
+```
+### ● リモート含む全ブランチ
+```
+git branch -a
+```
+### ● ブランチの切り替え
+```
+git checkout <ブランチ名>
+```
+### ● ブランチ名変更（作成済み）
+```
+git branch -m <新ブランチ名>
+```
+
+---
+以上。
+main ブランチから開発用ブランチを作成し、安全に開発を進めるための標準フローです。
