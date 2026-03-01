@@ -1,0 +1,23 @@
+
+【Git 手順書】ローカル main ブランチから、リモートの v1.3.0-dev ブランチへ切り替える手順
+
+1. 現在のブランチを確認する
+   git branch
+
+2. リモートブランチの最新情報を取得する
+   git fetch origin
+
+3. リモートに v1.3.0-dev ブランチが存在するか確認する
+   git branch -r
+
+4. ローカルに v1.3.0-dev ブランチを作成しチェックアウトする
+   git checkout -b v1.3.0-dev origin/v1.3.0-dev
+
+   ※すでにローカルに存在する場合は以下
+   git checkout v1.3.0-dev
+   git pull origin v1.3.0-dev
+
+5. ブランチが切り替わったことを確認
+   git branch
+
+以上で、ローカルがリモートの v1.3.0-dev ブランチに切り替わります。
