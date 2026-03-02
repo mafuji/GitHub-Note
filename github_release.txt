@@ -82,6 +82,9 @@ git tag -d v1.0.0
 git push origin :refs/tags/v1.0.0
 ```
 
+### ● ローカルの追跡情報をリモートと同期（開発ブランチ→mainブランチの切り替え時など）
+---
+git fetch --prune
 ---
 以上。
 GitHub のタグ作成から Release 公開までの定番手順をまとめた覚書です。
